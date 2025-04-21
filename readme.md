@@ -7,6 +7,8 @@ This project is a robust document retrieval and question answering system built 
 **How to run**:
 
 ```bash
+curl -fsSL https://ollama.com/install.sh | sh
+
 python3 -m venv .venv
 source .venv/bin/activate
 
