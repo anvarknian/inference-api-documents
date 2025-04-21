@@ -12,8 +12,13 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 
-uvicorn app.main:app --host 0.0.0.0 --port 8080 --log-level info --reload
+uvicorn app.main:app --log-level info --reload
 ```
+
+**Read the API**:
+
+Your API will be available at:
+```http://localhost:8000/docs#```
 
 ---
 
