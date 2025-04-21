@@ -1,4 +1,5 @@
 import os
+import shutil
 from typing import List
 
 from langchain.schema import Document
@@ -44,6 +45,9 @@ def split_text(documents: List[Document]) -> List[Document]:
 def save_to_chroma(chunks: List[Document]) -> None:
     """Embeds and stores chunks in a Chroma vector database."""
     if not os.path.exists(CHROMA_PATH):
+        logger.warning(f"Chroma path '{CHROMA_PATH}' already exists. Skipping save.")
+        shutil.rmtree(CHROMA_PATH)
+    else:
         embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
         Chroma.from_documents(
             documents=chunks,
@@ -51,5 +55,3 @@ def save_to_chroma(chunks: List[Document]) -> None:
             persist_directory=CHROMA_PATH,
         )
         logger.info(f"Saved {len(chunks)} chunks to Chroma at {CHROMA_PATH}")
-    else:
-        logger.warning(f"Chroma path '{CHROMA_PATH}' already exists. Skipping save.")
